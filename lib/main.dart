@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './question.dart';
+import './answer.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,11 +10,11 @@ class MyApp extends StatefulWidget
   @override
   State<StatefulWidget> createState() 
   {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> 
+class _MyAppState extends State<MyApp> 
 {
   var _questionIndex = 0;
 
@@ -30,30 +31,40 @@ class MyAppState extends State<MyApp>
   Widget build(BuildContext context) 
   {
     var questions = [
-      "What's your favorite color?",
-      "What's your favorite animal?",
+      {
+        "questionText": "What's your favorite color?", "answers": 
+          [
+            "Black", "Red", "Green", "White",
+          ],
+      },
+      {
+        "questionText": "What's your favorite animal?", "answers": 
+          [
+            "Tiger", "Parrot", "Rabbit", "Fish",
+          ],
+      },
+      {
+        "questionText": "What's your favorite food?", "answers": 
+          [
+            "Pasta", "Soup", "Pizza", "Kebab",
+          ],
+      },
     ];
 
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.cyan,
+      ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("My First App"),
+          title: Text("Quiz App"),
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            OutlinedButton(
-              child: Text("Answer 1"), 
-              onPressed: _answerQuestion
-            ),
-            OutlinedButton(
-              child: Text("Answer 2"), 
-              onPressed: () => print("Answer 2 chosen!")
-            ),
-            OutlinedButton(
-              child: Text("Answer 3"), 
-              onPressed: () => print("Answer 3 chosen!")
-            ),
+            Question(questions[_questionIndex]["questionText"] as String),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
